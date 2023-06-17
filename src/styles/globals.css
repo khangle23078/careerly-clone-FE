@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form-control {
+  @apply w-full text-sm h-[48px] border 
+        border-solid border-[#cbd5e1] rounded-md p-2 transition
+        focus:outline-none focus:border-[#f9cdc6] focus:shadow-1;
+}
