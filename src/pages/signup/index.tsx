@@ -34,7 +34,8 @@ const Signup: NextPageWithLayout = (props: Props) => {
   });
 
   const onSubmit: SubmitHandler<any> = (data: any) => {
-    console.log(data);
+    try {
+    } catch (error) {}
   };
 
   return (
