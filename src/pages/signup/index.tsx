@@ -5,10 +5,16 @@ import Head from 'next/head';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '@/features/authSlice';
+import { AppDispatch, RootState } from '@/features';
+import { message, Spin } from 'antd';
+import { IUser } from '@/interfaces/user';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
-const signupSchema = yup
+const registerSchema = yup
   .object({
     userName: yup.string().required('Vui lòng nhập tên tài khoản'),
     email: yup
@@ -30,12 +36,19 @@ const Signup: NextPageWithLayout = (props: Props) => {
       email: '',
       password: '',
     },
-    resolver: yupResolver(signupSchema),
+    resolver: yupResolver(registerSchema),
   });
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
 
-  const onSubmit: SubmitHandler<any> = (data: any) => {
+  const onSubmit: SubmitHandler<IUser> = async (data: IUser) => {
     try {
-    } catch (error) {}
+      await dispatch(signup(data));
+      message.success('Đăng ký thành công');
+      router.push('/login');
+    } catch (error) {
+      message.warning('Đăng ký không thành công');
+    }
   };
 
   return (
